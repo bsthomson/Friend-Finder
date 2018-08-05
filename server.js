@@ -14,7 +14,7 @@ app.get("/", function(req, res) {
 });
 
 app.get("/survey", function(req, res) {
-    res.sendFile(path.join(__dirname, "/app/publice/reserve.html"))
+    res.sendFile(path.join(__dirname, "/app/public/survey.html"))
 })
 
 app.listen(PORT, function() {
