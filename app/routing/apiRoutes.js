@@ -5,7 +5,7 @@ module.exports = function(app) {
         return res.json(friends);
     });
 
-    app.get("/api/characters/:friend", function(req, res) {
+    app.get("/api/friends/:friend", function(req, res) {
         var chosen = req.params.friend;
     
         console.log(chosen);
