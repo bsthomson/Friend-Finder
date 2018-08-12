@@ -28,6 +28,20 @@ var friends = [
         score8: 1,
         score9: 1,
         score10: 1
+    },
+    {
+        name: "Neutral President",
+        picture: "https://vignette.wikia.nocookie.net/en.futurama/images/a/a2/225px-Neutral_President.jpg/revision/latest?cb=20090724200455",
+        score1: 3,
+        score2: 3,
+        score3: 3,
+        score4: 3,
+        score5: 3,
+        score6: 3,
+        score7: 3,
+        score8: 3,
+        score9: 3,
+        score10: 3
     }
 ];
 

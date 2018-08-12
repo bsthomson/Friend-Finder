@@ -77,7 +77,7 @@
                 </div>
                 <div class="form-group">
                     <label for="multipleChoice5"><p>Question 5</p>
-                    <p>Is an individual a small part of the greater society?</p></label>
+                    <p>Is individuality more importan than family?</p></label>
                     <select class="form-control" id="multipleChoice5">
                         <option>1 (strongly disagree)</option>
                         <option>2 (disagree)</option>
@@ -109,7 +109,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="multipleChoice8">Question 8</label>
+                    <label for="multipleChoice8"><p>Question 8</p>
+                    <p>Is the proletariat underrepresented?</p></label>
                     <select class="form-control" id="multipleChoice8">
                         <option>1 (strongly disagree)</option>
                         <option>2 (disagree)</option>
@@ -119,7 +120,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="multipleChoice9">Question 9</label>
+                    <label for="multipleChoice9"><p>Question 9</p>
+                    <p>Should a man let the government seize his property if it is for the greater good?</p></label>
                     <select class="form-control" id="multipleChoice9">
                         <option>1 (strongly disagree)</option>
                         <option>2 (disagree)</option>
@@ -129,7 +131,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="multipleChoice10">Question 10</label>
+                    <label for="multipleChoice10"><p>Question 10</p>
+                    <p>Better red than dead?</p></label>
                     <select class="form-control" id="multipleChoice10">
                         <option>1 (strongly disagree)</option>
                         <option>2 (disagree)</option>
@@ -148,7 +151,7 @@
             var newFriend = {
                 name: $("#inputName").val().trim(),
                 picture: $("#pictureLink").val().trim(),
-                score1: parseInt($("#multipleChoice1").val().trim()),
+                score1: parseFloat($("#multipleChoice1").val().trim()),
                 score2: parseInt($("#multipleChoice2").val().trim()),
                 score3: parseInt($("#multipleChoice3").val().trim()),
                 score4: parseInt($("#multipleChoice4").val().trim()),
@@ -160,10 +163,50 @@
                 score10: parseInt($("#multipleChoice10").val().trim())
             }
             console.log(newFriend);
+            console.log(window.location.origin)
+            
+            function findFriend() {
+                var currentURL = window.location.origin;
+
+                $.ajax({ url: currentURL + "/api/friends", method: "GET" })
+                .then(function(friends) {
+                    console.log("-------------------------------------");
+                    console.log("URL: " + currentURL + "/api/friends");
+                    console.log("-------------------------------------");
+
+                    console.log(friends);
+                    console.log(newFriend);
+                    console.log("-------------------------------------");
+                    
+                    userScore = [newFriend.score1, newFriend.score2, newFriend.score3, newFriend.score4, newFriend.score5, newFriend.score6, newFriend.score7, newFriend.score8, newFriend.score9, newFriend.score10];
+
+                    friendArray = [];
+
+                    for (var i = 0; i < friends.length; i++) {
+                        var q1 = Math.abs(userScore[0] - parseInt(friends[i].score1));
+                        var q2 = Math.abs(userScore[1] - parseInt(friends[i].score2));
+                        var q3 = Math.abs(userScore[2] - parseInt(friends[i].score3));
+                        var q4 = Math.abs(userScore[3] - parseInt(friends[i].score4));
+                        var q5 = Math.abs(userScore[4] - parseInt(friends[i].score5));
+                        var q6 = Math.abs(userScore[5] - parseInt(friends[i].score6));
+                        var q7 = Math.abs(userScore[6] - parseInt(friends[i].score7));
+                        var q8 = Math.abs(userScore[7] - parseInt(friends[i].score8));
+                        var q9 = Math.abs(userScore[8] - parseInt(friends[i].score9));
+                        var q10 = Math.abs(userScore[9] - parseInt(friends[i].score10));
+                        var qTotal = q1 += q2 += q3 += q4 += q5 += q6 += q7 += q8 += q9 += q10;
+                        friendArray.push( { name: friends[i].name, friendshipQuotient: qTotal});                        
+                    }
+
+                    console.log(friendArray);
+                })
+            }
+
+            findFriend();
 
             $.post("/api/friends", newFriend)
                 .then(function(data) {
                 console.log(data);
+
         });
         })
     </script>
