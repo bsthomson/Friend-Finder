@@ -167,6 +167,7 @@
         //our button that records our form
         $(".btn-primary").on("click", function() {
             event.preventDefault();
+            $("#newPal").empty();
             newFriend = {
                 name: $("#inputName").val().trim(),
                 picture: $("#pictureLink").val().trim(),
